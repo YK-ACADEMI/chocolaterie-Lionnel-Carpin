@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Produits vendus — Chocolaterie Lionel Carpin</title><meta name="description" content="Catalogue des produits vendus par la Chocolaterie Lionel Carpin, sans affichage des prix."><style>
+:root{--bg:#09090b;--panel:#121217;--ink:#f2f0ed;--muted:#aaa5a0;--brand:#d4af37;--border:#29231e;--card:#160b07;--brown1:#1a0904;--brown2:#4a1f0d;--brown3:#8a4823;--brown4:#c47a3a}
+*{box-sizing:border-box}html,body{min-height:100%}body{margin:0;background:#080706;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif}button,input{font:inherit}a{color:inherit}.wrap{max-width:1040px;margin:0 auto;padding:12px;position:relative;z-index:2}
+
+
+.site-nav{position:relative;z-index:50;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:8px;width:100%;margin:4px 0 12px;transform:none}
+.site-nav a{text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;min-width:0;border:1px solid var(--border);background:rgba(18,18,23,.94);padding:12px 10px;border-radius:12px;font-size:13px;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:border-color .18s ease,background .18s ease,transform .18s ease}
+.site-nav a:hover{border-color:rgba(212,175,55,.55);background:rgba(212,175,55,.08);transform:translateY(-2px)}
+.site-nav a[aria-current="page"]{border-color:rgba(212,175,55,.8);background:linear-gradient(180deg,rgba(212,175,55,.18),rgba(212,175,55,.07));box-shadow:inset 0 0 0 1px rgba(212,175,55,.15),0 8px 24px rgba(0,0,0,.2)}
+@media(max-width:620px){.site-nav{gap:6px;margin:4px 0 10px}.site-nav a{font-size:11px;padding:11px 5px;border-radius:10px}}
+@media(max-width:380px){.site-nav{gap:4px}.site-nav a{font-size:10px;letter-spacing:-.2px;padding:10px 3px}}
+.search-zone{position:relative;margin:0 0 12px}.search{position:relative;display:flex;align-items:center;background:#111116;border:1px solid #302820;border-radius:13px;padding:11px 12px;box-shadow:0 8px 24px rgba(0,0,0,.2)}.search::before{content:'⌕';color:var(--brand);font-size:19px;margin-right:8px}.search input{all:unset;flex:1;min-width:0;color:var(--ink)}.search input::placeholder{color:#858087}.suggest{position:absolute;left:0;right:0;top:calc(100% + 5px);background:#121217;border:1px solid var(--border);border-radius:11px;max-height:290px;overflow:auto;display:none;z-index:30;box-shadow:0 18px 40px rgba(0,0,0,.42)}.suggest[aria-hidden="false"]{display:block}.suggest button{all:unset;display:block;width:100%;padding:9px 11px;cursor:pointer}.suggest button:hover,.suggest button[aria-selected="true"]{background:rgba(212,175,55,.12)}
+header{margin:5px 0 8px}h1{margin:0 0 2px;font-size:18px;font-weight:850}h2{margin:0;color:var(--muted);font-size:13px;font-weight:600}.meta{margin-top:7px}.pill{display:inline-block;border:1px solid var(--border);background:#101014;padding:5px 9px;border-radius:999px;font-size:11px;color:#cbc6c1}
+.controls{margin:8px 0 10px;display:grid;gap:7px}.filter-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.filter-label{font-size:12px;color:var(--muted);font-weight:750}.chip{border:1px solid var(--border);color:var(--ink);background:#111116;padding:6px 10px;border-radius:999px;font-size:12px;cursor:pointer}.chip[aria-pressed="true"]{border-color:rgba(212,175,55,.65);background:rgba(212,175,55,.1);box-shadow:inset 0 0 0 1px rgba(212,175,55,.2)}
+.grid{margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{position:relative;isolation:isolate;border:1px solid #38291f;border-radius:15px;aspect-ratio:1/1;overflow:hidden;cursor:pointer;padding:0;color:var(--ink);text-align:left;background:linear-gradient(145deg,#170d09,#24130c 55%,#120a07);box-shadow:0 8px 24px rgba(0,0,0,.24)}
+.card img{position:absolute;z-index:2;left:9%;top:8%;width:82%;height:70%;object-fit:contain;display:block;border-radius:10px;filter:drop-shadow(0 12px 11px rgba(0,0,0,.38));background:transparent}.card img.missing{display:none}.card .label{position:absolute;z-index:4;left:7px;right:7px;bottom:7px;background:rgba(4,3,3,.7);border:1px solid rgba(255,255,255,.08);padding:6px 8px;border-radius:9px;font-size:12px;font-weight:720;line-height:1.2;text-shadow:0 1px 2px #000}.card:focus-visible{outline:3px solid var(--brand);outline-offset:2px}.card:hover{border-color:rgba(212,175,55,.5)}
+.hint{font-size:12px;color:var(--muted)}.empty{grid-column:1/-1;border:1px dashed var(--border);border-radius:12px;padding:22px;text-align:center;color:var(--muted)}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.72);z-index:60}.modal[open]{display:flex}.sheet{width:min(940px,96vw);height:min(88vh,920px);background:#111116;border:1px solid #352a23;border-radius:15px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 28px 80px rgba(0,0,0,.55)}.sheet-header{position:sticky;top:0;z-index:3;background:linear-gradient(180deg,rgba(11,11,13,.99),rgba(11,11,13,.9));border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;padding:11px 12px}.sheet-title{font-weight:850;font-size:15px;line-height:1.2;flex:1}.btn-x{border:1px solid var(--border);background:#0d0d11;color:var(--ink);border-radius:10px;cursor:pointer;width:36px;height:32px;display:grid;place-items:center;font-size:18px}.sheet-body{display:grid;grid-template-columns:minmax(280px,.9fr) 1.1fr;min-height:0;flex:1}.sheet-photo{position:relative;isolation:isolate;margin:0;overflow:hidden;border-right:1px solid var(--border);background:linear-gradient(145deg,#1a0d08,#0e0907)}.sheet-photo img{position:absolute;z-index:2;left:8%;top:8%;width:84%;height:84%;object-fit:contain;filter:drop-shadow(0 15px 16px rgba(0,0,0,.45))}.sheet-photo img.missing{display:none}.sheet-desc{overflow:auto;padding:17px}.sheet-desc h3{font-size:13px;margin:17px 0 5px;color:#e9d9bd}.sheet-desc h3:first-child{margin-top:0}.sheet-desc p{margin:0 0 9px;line-height:1.48;color:#e7e3df}.badge{display:inline-block;border:1px solid rgba(212,175,55,.4);background:rgba(212,175,55,.09);padding:4px 8px;border-radius:999px;font-size:11px;margin:0 6px 7px 0}.warning{border-left:3px solid #8b6f38;background:rgba(212,175,55,.06);padding:9px 10px;border-radius:8px;color:#cfc8bf;font-size:12px;line-height:1.4;margin-top:14px}
+@media(min-width:760px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:620px){.wrap{padding:9px}.search{padding:10px}.grid{gap:7px}.card .label{font-size:11px}.sheet{width:96vw;height:92vh}.sheet-body{grid-template-columns:1fr;overflow:auto}.sheet-photo{height:37vh;min-height:230px;border-right:0;border-bottom:1px solid var(--border)}.sheet-desc{overflow:visible;padding:14px}}@media(max-width:380px){.grid{grid-template-columns:1fr 1fr}}
+
+/* Fond cacao premium GPU : net, profond, non cliquable */
+.cocoa-bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;user-select:none;background:
+radial-gradient(ellipse at 18% 12%,rgba(96,54,30,.115) 0%,rgba(96,54,30,0) 34%),
+radial-gradient(ellipse at 84% 82%,rgba(118,68,39,.090) 0%,rgba(118,68,39,0) 36%),
+radial-gradient(ellipse at 55% 48%,rgba(73,38,21,.055) 0%,rgba(73,38,21,0) 46%),
+linear-gradient(180deg,#140d0a 0%,#0e0907 43%,#090706 72%,#070605 100%)}
+.cocoa-bg::before,.cocoa-bg::after{content:none!important;display:none!important}
+.cocoa-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:1;transform:translateZ(0)}
+.cocoa-overlay{position:absolute;inset:0;pointer-events:none;background:
+linear-gradient(180deg,rgba(255,240,218,.012),transparent 19%,transparent 78%,rgba(0,0,0,.065)),
+radial-gradient(ellipse at center,transparent 0%,transparent 66%,rgba(0,0,0,.065) 100%);opacity:1}
+@media(max-width:620px){.cocoa-bg{background:
+radial-gradient(ellipse at 15% 10%,rgba(96,54,30,.09) 0%,transparent 30%),
+radial-gradient(ellipse at 88% 80%,rgba(118,68,39,.07) 0%,transparent 32%),
+linear-gradient(180deg,#130c09 0%,#0d0907 48%,#070605 100%)}}
+</style></head>
+<body><div class="cocoa-bg" aria-hidden="true"><canvas class="cocoa-canvas"></canvas><div class="cocoa-overlay"></div></div><div class="wrap"><nav class="site-nav" aria-label="Les trois gammes">
+<a href="index.html">Chocolats</a>
+<a href="produits-vendus.html" aria-current="page">Produits vendus</a>
+<a href="produits-partenaires.html">Produits partenaires</a>
+</nav>
+<div class="search-zone" role="search"><label class="search" aria-label="Rechercher dans cette gamme"><input id="q" type="search" placeholder="Rechercher : ballotin, papillote, orangette, galet, tablette…" autocomplete="off"><div class="suggest" id="suggest" aria-hidden="true" role="listbox"></div></label></div>
+<header><h1>Chocolaterie Lionel Carpin</h1><h2>Produits vendus par la chocolaterie</h2><div class="meta"><span class="pill" id="countPill">0 produit</span></div></header>
+<div class="controls"><div class="filter-row" role="group" aria-label="Catégorie"><strong class="filter-label">Catégorie :</strong><button class="chip chip-category" aria-pressed="true" data-category="all">Tous</button><button class="chip chip-category" aria-pressed="false" data-category="Assortiments">Assortiments</button><button class="chip chip-category" aria-pressed="false" data-category="Coffrets">Coffrets</button><button class="chip chip-category" aria-pressed="false" data-category="Confiseries">Confiseries</button><button class="chip chip-category" aria-pressed="false" data-category="Gourmandises">Gourmandises</button><button class="chip chip-category" aria-pressed="false" data-category="Tablettes">Tablettes</button><button class="chip chip-category" aria-pressed="false" data-category="Chocolat à cuisiner">Chocolat à cuisiner</button></div></div><section class="grid" id="gallery" aria-label="Galerie de produits"></section><p class="hint">Cliquez sur un produit pour voir ce qu’il est, sa composition connue, les allergènes et la conservation.</p></div><div class="modal" id="modal"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="sheet-header"><div class="sheet-title" id="sheetTitle"></div><button class="btn-x" id="btnClose" aria-label="Fermer">×</button></div><div class="sheet-body"><figure class="sheet-photo"><img class="product-image" id="sheetImg" src="" alt=""></figure><div class="sheet-desc" id="sheetDesc"></div></div></div></div>
+<script>const PRODUCTS=[{"id":1,"title":"Sachets de chocolats assortis","category":"Assortiments","image":"images/sachets-de-chocolats-assortis.jpg","description":"Assortiment de chocolats de la maison présenté en sachet.","composition":"Composition variable selon l’assortiment : ganaches, pralinés et autres spécialités de la maison.","allergens":"Peut contenir lait, fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"sachet assorti chocolat"},{"id":2,"title":"Sachets de chocolats tout noir","category":"Assortiments","image":"images/sachets-de-chocolats-tout-noir.jpg","description":"Sélection de chocolats de la maison en version tout chocolat noir.","composition":"Composition variable selon les chocolats sélectionnés, avec couverture chocolat noir.","allergens":"Peut contenir lait, fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"sachet noir"},{"id":3,"title":"Sachets de chocolats tout lait","category":"Assortiments","image":"images/sachets-de-chocolats-tout-lait.jpg","description":"Sélection de chocolats de la maison en version tout chocolat au lait.","composition":"Composition variable selon les chocolats sélectionnés, avec couverture chocolat au lait.","allergens":"Lait ; peut contenir fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"sachet lait"},{"id":4,"title":"Ballotins de chocolats assortis","category":"Coffrets","image":"images/ballotins-de-chocolats-assortis.jpg","description":"Ballotin garni d’un assortiment de chocolats de la maison.","composition":"Composition variable selon l’assortiment : ganaches, pralinés et spécialités chocolatées.","allergens":"Peut contenir lait, fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"ballotin cadeau assortiment"},{"id":5,"title":"Ballotins de chocolats tout noir","category":"Coffrets","image":"images/ballotins-de-chocolats-tout-noir.jpg","description":"Ballotin composé uniquement de chocolats à couverture noire.","composition":"Composition variable selon la sélection intérieure, avec couverture chocolat noir.","allergens":"Peut contenir lait, fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"ballotin noir"},{"id":6,"title":"Ballotins de chocolats tout lait","category":"Coffrets","image":"images/ballotins-de-chocolats-tout-lait.jpg","description":"Ballotin composé uniquement de chocolats à couverture au lait.","composition":"Composition variable selon la sélection intérieure, avec couverture chocolat au lait.","allergens":"Lait ; peut contenir fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"ballotin lait"},{"id":7,"title":"Boîtes luxe de chocolats assortis","category":"Coffrets","image":"images/boites-luxe-de-chocolats-assortis.jpg","description":"Coffret de présentation contenant un assortiment de chocolats de la maison.","composition":"Composition variable selon l’assortiment choisi.","allergens":"Peut contenir lait, fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"boite luxe coffret"},{"id":8,"title":"Papillotes de chocolats assortis","category":"Coffrets","image":"images/papillotes-de-chocolats-assortis.jpg","description":"Chocolats de la maison présentés individuellement en papillotes, en assortiment.","composition":"Composition variable selon les pièces sélectionnées.","allergens":"Peut contenir lait, fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"papillote assorti"},{"id":9,"title":"Papillotes de chocolats tout noir","category":"Coffrets","image":"images/papillotes-de-chocolats-tout-noir.jpg","description":"Papillotes composées uniquement de chocolats à couverture noire.","composition":"Composition variable selon les pièces, avec couverture chocolat noir.","allergens":"Peut contenir lait, fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"papillote noir"},{"id":10,"title":"Papillotes de chocolats tout lait","category":"Coffrets","image":"images/papillotes-de-chocolats-tout-lait.jpg","description":"Papillotes composées uniquement de chocolats à couverture au lait.","composition":"Composition variable selon les pièces, avec couverture chocolat au lait.","allergens":"Lait ; peut contenir fruits à coque, gluten et autres allergènes selon l’assortiment.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"papillote lait"},{"id":11,"title":"Pâte à tartiner","category":"Gourmandises","image":"images/pate-a-tartiner.jpg","description":"Pâte à tartiner chocolatée proposée par la chocolaterie.","composition":"Recette exacte à reprendre de l’étiquette ou de la fiche atelier : la composition détaillée n’était pas fournie dans les éléments disponibles.","allergens":"Allergènes à reprendre de l’étiquette du pot.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"pate tartiner pot"},{"id":12,"title":"Pâtes de fruits","category":"Confiseries","image":"images/pates-de-fruits.jpg","description":"Confiseries fruitées à texture tendre, proposées en sachet.","composition":"Préparation à base de fruits et de sucre ; parfums et recette exacte à reprendre de l’étiquette.","allergens":"Allergènes à confirmer selon les parfums et la fabrication.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"pate fruits sachet"},{"id":13,"title":"Galets","category":"Gourmandises","image":"images/galets.jpg","description":"Spécialité de la chocolaterie vendue sous l’appellation « Galets ».","composition":"Composition exacte à reprendre de l’étiquette ou de la fiche atelier afin de ne pas inventer la recette.","allergens":"Allergènes à confirmer sur la fiche atelier.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"galets sachet"},{"id":14,"title":"Mendiants","category":"Gourmandises","image":"images/mendiants.jpg","description":"Palets de chocolat garnis, traditionnellement associés à des fruits secs et/ou fruits confits.","composition":"Chocolat et garniture ; composition exacte de la version Lionel Carpin à reprendre de l’étiquette.","allergens":"Peut contenir fruits à coque, lait et autres allergènes selon la garniture.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"mendiant"},{"id":15,"title":"Orangettes","category":"Gourmandises","image":"images/orangettes.jpg","description":"Écorces d’orange confites enrobées de chocolat.","composition":"Écorces d’orange confites et enrobage chocolaté ; recette exacte à confirmer sur l’étiquette.","allergens":"Lait possible selon la couverture ; autres allergènes à confirmer.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"orangette orange confite"},{"id":16,"title":"Amandes cacaotées","category":"Gourmandises","image":"images/amandes-cacaotees.jpg","description":"Amandes préparées avec un enrobage chocolaté/cacaoté.","composition":"Amandes, préparation chocolatée et cacao ; recette exacte à reprendre de l’étiquette.","allergens":"Amandes ; lait possible.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"amandes cacao cacaotees"},{"id":17,"title":"Amandes enrobées","category":"Gourmandises","image":"images/amandes-enrobees.jpg","description":"Amandes recouvertes d’un enrobage chocolaté.","composition":"Amandes et enrobage chocolaté ; type de couverture à confirmer sur l’étiquette.","allergens":"Amandes ; lait possible.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"amandes enrobees"},{"id":18,"title":"Plumeaux","category":"Gourmandises","image":"images/plumeaux.jpg","description":"Spécialité de la maison commercialisée sous le nom « Plumeaux ».","composition":"La recette précise n’est pas indiquée dans les éléments disponibles : reprendre la fiche atelier avant publication définitive.","allergens":"Allergènes à confirmer sur la fiche atelier.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"plumeaux"},{"id":19,"title":"Chocolat noir 70 %","category":"Chocolat à cuisiner","image":"images/chocolat-noir-70.jpg","description":"Chocolat noir annoncé à 70 % de cacao, destiné à la dégustation ou à la cuisine.","composition":"Chocolat noir 70 % de cacao. Liste d’ingrédients complète à reprendre de l’emballage fournisseur.","allergens":"Peut contenir des traces de lait et fruits à coque selon fabrication.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"noir 70 cacao"},{"id":20,"title":"Chocolat noir 59 %","category":"Chocolat à cuisiner","image":"images/chocolat-noir-59.jpg","description":"Chocolat noir annoncé à 59 % de cacao, destiné à la dégustation ou à la cuisine.","composition":"Chocolat noir 59 % de cacao. Liste d’ingrédients complète à reprendre de l’emballage fournisseur.","allergens":"Peut contenir des traces de lait et fruits à coque selon fabrication.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"noir 59 cacao"},{"id":21,"title":"Chocolat blanc","category":"Chocolat à cuisiner","image":"images/chocolat-blanc.jpg","description":"Chocolat blanc proposé pour dégustation ou utilisation en cuisine.","composition":"Composition exacte à reprendre de l’emballage fournisseur.","allergens":"Lait ; autres allergènes éventuels à confirmer.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"blanc cuisine"},{"id":22,"title":"Mini-tablettes chocolat noir","category":"Tablettes","image":"images/mini-tablettes-chocolat-noir.jpg","description":"Petites tablettes individuelles en chocolat noir.","composition":"Chocolat noir ; pourcentage de cacao et liste complète à confirmer sur la référence utilisée.","allergens":"Peut contenir lait et fruits à coque selon fabrication.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"mini tablette noir"},{"id":23,"title":"Mini-tablettes chocolat au lait","category":"Tablettes","image":"images/mini-tablettes-chocolat-au-lait.jpg","description":"Petites tablettes individuelles en chocolat au lait.","composition":"Chocolat au lait ; liste complète à confirmer sur la référence utilisée.","allergens":"Lait ; peut contenir fruits à coque.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"mini tablette lait"},{"id":24,"title":"Tablette nature chocolat au lait","category":"Tablettes","image":"images/tablette-nature-chocolat-au-lait.jpg","description":"Tablette de chocolat au lait nature.","composition":"Chocolat au lait. Liste réglementaire complète à reprendre de l’étiquette.","allergens":"Lait ; peut contenir fruits à coque.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"tablette nature lait"},{"id":25,"title":"Tablette nature chocolat noir","category":"Tablettes","image":"images/tablette-nature-chocolat-noir.jpg","description":"Tablette de chocolat noir nature.","composition":"Chocolat noir. Pourcentage de cacao et liste réglementaire complète à reprendre de l’étiquette.","allergens":"Peut contenir lait et fruits à coque selon fabrication.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"tablette nature noir"},{"id":26,"title":"Tablette noisettes chocolat au lait","category":"Tablettes","image":"images/tablette-noisettes-chocolat-au-lait.jpg","description":"Tablette de chocolat au lait garnie de noisettes.","composition":"Chocolat au lait et noisettes. Liste réglementaire complète à reprendre de l’étiquette.","allergens":"Lait, noisettes.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"tablette noisettes lait"},{"id":27,"title":"Tablette noisettes chocolat noir","category":"Tablettes","image":"images/tablette-noisettes-chocolat-noir.jpg","description":"Tablette de chocolat noir garnie de noisettes.","composition":"Chocolat noir et noisettes. Liste réglementaire complète à reprendre de l’étiquette.","allergens":"Noisettes ; peut contenir lait.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"tablette noisettes noir"},{"id":28,"title":"Chocolat concassé","category":"Chocolat à cuisiner","image":"images/chocolat-concasse.jpg","description":"Chocolat proposé sous forme concassée pour faciliter son utilisation.","composition":"Chocolat ; type et composition exacte à reprendre de la référence vendue.","allergens":"Allergènes à confirmer selon le chocolat utilisé.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"concasse vrac"},{"id":29,"title":"Chocolat entier","category":"Chocolat à cuisiner","image":"images/chocolat-entier.jpg","description":"Chocolat proposé en morceaux entiers ou non concassés.","composition":"Chocolat ; type et composition exacte à reprendre de la référence vendue.","allergens":"Allergènes à confirmer selon le chocolat utilisé.","conservation":"Conserver au sec, à l’abri de la chaleur et de la lumière. Se reporter à l’étiquette du produit pour la durée exacte.","keywords":"entier vrac"}];
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const tokens=s=>norm(s).split(/[^a-z0-9]+/).filter(Boolean);
+function lev(a,b){const m=a.length,n=b.length;if(!m)return n;if(!n)return m;const d=Array.from({length:m+1},(_,i)=>Array(n+1).fill(0));for(let i=0;i<=m;i++)d[i][0]=i;for(let j=0;j<=n;j++)d[0][j]=j;for(let i=1;i<=m;i++){for(let j=1;j<=n;j++){const c=a[i-1]===b[j-1]?0:1;d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c)}}return d[m][n]}
+function matchScore(text,query){const tt=tokens(text),qt=tokens(query);if(!qt.length)return{ok:true,score:0};let score=0;for(const q of qt){let best=Infinity,bonus=0;for(const t of tt){if(t.startsWith(q)){best=0;bonus=Math.max(bonus,2);break}if(t.includes(q)){best=Math.min(best,0);bonus=Math.max(bonus,1)}const d=lev(t,q);if(d<best)best=d}if(best<=1)score+=(2-best)+bonus;else return{ok:false,score:0}}return{ok:true,score}}
+function safe(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+const $gallery=document.getElementById('gallery'),$q=document.getElementById('q'),$count=document.getElementById('countPill'),$suggest=document.getElementById('suggest'),$modal=document.getElementById('modal'),$sheetTitle=document.getElementById('sheetTitle'),$sheetImg=document.getElementById('sheetImg'),$sheetDesc=document.getElementById('sheetDesc');
+function wireImages(root=document){root.querySelectorAll('img.product-image').forEach(img=>{img.addEventListener('error',()=>img.classList.add('missing'),{once:true})})}
+function productText(p){return [p.title,p.base,p.category,p.family,p.type,p.keywords,p.description,p.composition,p.allergens].filter(Boolean).join(' ')}
+function renderGallery(list){if(!list.length){$gallery.innerHTML='<div class="empty">Aucun produit ne correspond à votre recherche.</div>';$count.textContent='0 produit';return}$gallery.innerHTML=list.map(p=>`<button class="card" data-id="${p.id}" aria-label="Ouvrir ${safe(p.title)}"><img class="product-image" src="${safe(p.image)}" alt="${safe(p.title)}" loading="lazy"><span class="label">${safe(p.title)}</span></button>`).join('');wireImages($gallery);$count.textContent=`${list.length} produit${list.length>1?'s':''}`}
+function renderSuggest(q,list){const has=q.trim().length>0&&list.length>0;if(!has){$suggest.setAttribute('aria-hidden','true');$suggest.innerHTML='';return}$suggest.innerHTML=list.slice(0,8).map((p,i)=>`<button role="option" data-id="${p.id}" aria-selected="${i===0}">${safe(p.title)}</button>`).join('');$suggest.setAttribute('aria-hidden','false')}
+function openProduct(id){const p=PRODUCTS.find(x=>x.id===id);if(!p)return;$sheetTitle.textContent=p.title;$sheetImg.classList.remove('missing');$sheetImg.src=p.image;$sheetImg.alt=p.title;$sheetImg.onerror=()=>{$sheetImg.onerror=null;$sheetImg.classList.add('missing')};const tag=p.category||p.family||'';const type=p.type?`<span class="badge">${safe(p.type)}</span>`:'';$sheetDesc.innerHTML=`<p>${tag?`<span class="badge">${safe(tag)}</span>`:''}${type}</p><h3>Ce que c’est</h3><p>${safe(p.description)}</p><h3>Composition</h3><p>${safe(p.composition)}</p><h3>Allergènes</h3><p>${safe(p.allergens)}</p><h3>Conservation</h3><p>${safe(p.conservation)}</p><div class="warning">La liste réglementaire complète des ingrédients et allergènes doit toujours être recopiée depuis la fiche technique ou l’étiquette réelle du produit avant publication définitive.</div>`;document.body.style.overflow='hidden';$modal.setAttribute('open','')}
+function closeModal(){$modal.removeAttribute('open');document.body.style.overflow=''}
+$q.addEventListener('input',e=>{state.query=e.target.value;applyFilters()});
+$suggest.addEventListener('click',e=>{const btn=e.target.closest('button[role="option"]');if(!btn)return;openProduct(Number(btn.dataset.id));$suggest.setAttribute('aria-hidden','true')});
+$q.addEventListener('keydown',e=>{if($suggest.getAttribute('aria-hidden')==='true')return;const opts=Array.from($suggest.querySelectorAll('button[role="option"]'));if(!opts.length)return;const idx=Math.max(0,opts.findIndex(o=>o.getAttribute('aria-selected')==='true'));if(e.key==='ArrowDown'){e.preventDefault();const ni=Math.min(opts.length-1,idx+1);opts.forEach(o=>o.setAttribute('aria-selected','false'));opts[ni].setAttribute('aria-selected','true');opts[ni].scrollIntoView({block:'nearest'})}if(e.key==='ArrowUp'){e.preventDefault();const ni=Math.max(0,idx-1);opts.forEach(o=>o.setAttribute('aria-selected','false'));opts[ni].setAttribute('aria-selected','true');opts[ni].scrollIntoView({block:'nearest'})}if(e.key==='Enter'){e.preventDefault();(opts.find(o=>o.getAttribute('aria-selected')==='true')||opts[0])?.click()}if(e.key==='Escape')$suggest.setAttribute('aria-hidden','true')});
+$q.addEventListener('blur',()=>setTimeout(()=>$suggest.setAttribute('aria-hidden','true'),120));document.getElementById('btnClose').addEventListener('click',closeModal);$modal.addEventListener('click',e=>{if(e.target===$modal)closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});$gallery.addEventListener('click',e=>{const btn=e.target.closest('.card');if(btn)openProduct(Number(btn.dataset.id))});
+
+const $chips=Array.from(document.querySelectorAll('.chip-category'));let state={category:'all',query:''};$chips.forEach(ch=>ch.addEventListener('click',()=>{$chips.forEach(x=>x.setAttribute('aria-pressed','false'));ch.setAttribute('aria-pressed','true');state.category=ch.dataset.category;applyFilters()}));
+function applyFilters(){let list=PRODUCTS;if(state.category!=='all')list=list.filter(p=>p.category===state.category);if(state.query.trim())list=list.map(p=>({p,ms:matchScore(productText(p),state.query)})).filter(x=>x.ms.ok).sort((a,b)=>b.ms.score-a.ms.score).map(x=>x.p);renderGallery(list);renderSuggest(state.query,list)}
+
+function initCocoaBackground(){
+  const bg=document.querySelector('.cocoa-bg');
+  const canvas=bg?.querySelector('.cocoa-canvas');
+  if(!bg||!canvas||canvas.dataset.ready)return;
+  canvas.dataset.ready='1';
+  const ctx=canvas.getContext('2d',{alpha:true,desynchronized:true});
+  if(!ctx)return;
+
+  const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobile=()=>window.innerWidth<700;
+  const rand=(a,b)=>Math.random()*(b-a)+a;
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const TAU=Math.PI*2;
+  let w=0,h=0,dpr=1,streams=[],ambient=[],sprites={beans:[],nibs:[],dust:[]};
+
+  const palettes=[
+    {hi:'#b66e3c',mid:'#7a3f21',lo:'#3a1b0e',line:'#241006',speck:'#d18a53'},
+    {hi:'#a75f34',mid:'#6a351c',lo:'#31150b',line:'#1e0c05',speck:'#c47a46'},
+    {hi:'#c07b48',mid:'#824825',lo:'#3d1e10',line:'#251007',speck:'#d79a66'},
+    {hi:'#92502d',mid:'#5d2d18',lo:'#2c1209',line:'#1a0904',speck:'#b86a3b'}
+  ];
+
+  function beanPath(c,s){
+    const W=c.width,H=c.height;
+    c.beginPath();
+    c.moveTo(W*.50,H*.06);
+    c.bezierCurveTo(W*.78,H*.07,W*.93,H*.27,W*.85,H*.54);
+    c.bezierCurveTo(W*.79,H*.77,W*.64,H*.92,W*.50,H*.95);
+    c.bezierCurveTo(W*.30,H*.92,W*.14,H*.75,W*.17,H*.49);
+    c.bezierCurveTo(W*.18,H*.26,W*.29,H*.09,W*.50,H*.06);
+    c.closePath();
+  }
+
+  function makeBeanSprite(size,paletteIndex,variant){
+    const scale=3;
+    const sw=Math.round(size*1.08*scale),sh=Math.round(size*1.42*scale);
+    const c=document.createElement('canvas');c.width=sw;c.height=sh;
+    const x=c.getContext('2d');x.scale(scale,scale);
+    const W=sw/scale,H=sh/scale,p=palettes[paletteIndex%palettes.length];
+    x.save();
+    x.shadowColor='rgba(0,0,0,.28)';x.shadowBlur=0;x.shadowOffsetX=size*.07;x.shadowOffsetY=size*.11;
+    const g=x.createLinearGradient(W*.18,H*.10,W*.86,H*.86);
+    g.addColorStop(0,p.hi);g.addColorStop(.38,p.mid);g.addColorStop(1,p.lo);
+    beanPath(x);x.fillStyle=g;x.fill();x.restore();
+
+    x.save();beanPath(x);x.clip();
+    const edge=x.createRadialGradient(W*.34,H*.24,0,W*.48,H*.48,W*.58);
+    edge.addColorStop(0,'rgba(255,230,197,.18)');edge.addColorStop(.38,'rgba(255,230,197,.035)');edge.addColorStop(1,'rgba(0,0,0,.22)');
+    x.fillStyle=edge;x.fillRect(0,0,W,H);
+    // Fine natural cacao texture, no blur.
+    let seed=(variant+1)*97+paletteIndex*31;
+    const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+    for(let i=0;i<Math.max(5,Math.round(size*.7));i++){
+      const px=W*(.25+rnd()*.5),py=H*(.15+rnd()*.70),r=Math.max(.18,size*(.014+rnd()*.018));
+      x.fillStyle=rnd()>.5?'rgba(244,196,146,.10)':'rgba(20,8,3,.12)';
+      x.beginPath();x.arc(px,py,r,0,TAU);x.fill();
+    }
+    x.restore();
+
+    // Characteristic cocoa-bean central groove.
+    x.save();
+    x.strokeStyle=p.line;x.lineWidth=Math.max(.65,size*.055);x.lineCap='round';
+    x.beginPath();
+    x.moveTo(W*.50,H*.14);
+    x.bezierCurveTo(W*.39,H*.30,W*.61,H*.45,W*.47,H*.61);
+    x.bezierCurveTo(W*.40,H*.70,W*.50,H*.79,W*.49,H*.87);
+    x.stroke();
+    x.strokeStyle='rgba(233,168,111,.17)';x.lineWidth=Math.max(.35,size*.020);
+    x.beginPath();x.moveTo(W*.475,H*.15);x.bezierCurveTo(W*.385,H*.31,W*.585,H*.44,W*.455,H*.60);x.stroke();
+    // Crisp highlight, no filter.
+    x.fillStyle='rgba(255,224,189,.16)';
+    x.beginPath();x.ellipse(W*.34,H*.27,W*.075,H*.15,-.48,0,TAU);x.fill();
+    x.restore();
+    return c;
+  }
+
+  function makeNibSprite(size,paletteIndex,variant){
+    const scale=3,sw=Math.round(size*scale),sh=Math.round(size*.88*scale);
+    const c=document.createElement('canvas');c.width=sw;c.height=sh;const x=c.getContext('2d');x.scale(scale,scale);
+    const W=sw/scale,H=sh/scale,p=palettes[paletteIndex%palettes.length];
+    const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,p.hi);g.addColorStop(.55,p.mid);g.addColorStop(1,p.lo);
+    x.beginPath();x.moveTo(W*.08,H*.46);x.lineTo(W*.28,H*.07);x.lineTo(W*.78,H*.13);x.lineTo(W*.94,H*.56);x.lineTo(W*.62,H*.94);x.lineTo(W*.18,H*.82);x.closePath();x.fillStyle=g;x.fill();
+    x.strokeStyle='rgba(32,13,6,.55)';x.lineWidth=Math.max(.45,size*.04);x.stroke();
+    x.fillStyle='rgba(255,221,183,.13)';x.beginPath();x.moveTo(W*.25,H*.24);x.lineTo(W*.54,H*.17);x.lineTo(W*.44,H*.35);x.closePath();x.fill();
+    return c;
+  }
+
+  function makeDustSprite(size,paletteIndex,variant){
+    const scale=3,sw=Math.round(size*scale),sh=sw;
+    const c=document.createElement('canvas');c.width=sw;c.height=sh;const x=c.getContext('2d');x.scale(scale,scale);
+    const p=palettes[paletteIndex%palettes.length],W=sw/scale,H=W;
+    let seed=(variant+11)*79+paletteIndex*23;
+    const rnd=()=>{seed=(seed*1103515245+12345)>>>0;return seed/4294967296;};
+    for(let i=0;i<6;i++){
+      const r=Math.max(.28,size*(.055+rnd()*.045)),px=W*(.16+rnd()*.68),py=H*(.16+rnd()*.68);
+      x.fillStyle=i%2?`${p.mid}cc`:`${p.hi}bb`;x.beginPath();x.arc(px,py,r,0,TAU);x.fill();
+    }
+    return c;
+  }
+
+  function buildSprites(){
+    sprites={beans:[],nibs:[],dust:[]};
+    const beanSizes=mobile()?[9,12,15,18]:[10,13,16,20,24];
+    const nibSizes=mobile()?[5,7,9]:[5,7,9,11];
+    const dustSizes=[5,7,9];
+    beanSizes.forEach((s,si)=>palettes.forEach((_,pi)=>sprites.beans.push(makeBeanSprite(s,pi,si))));
+    nibSizes.forEach((s,si)=>palettes.forEach((_,pi)=>sprites.nibs.push(makeNibSprite(s,pi,si))));
+    dustSizes.forEach((s,si)=>palettes.forEach((_,pi)=>sprites.dust.push(makeDustSprite(s,pi,si))));
+  }
+
+  function makeStream(index){
+    const fromLeft=Math.random()>.5;
+    const direction=fromLeft?1:-1;
+    const speed=rand(mobile()?.10:.12,mobile()?.22:.28)*(reduced?.35:1);
+    const baseY=rand(h*.06,h*.94);
+    const length=rand(mobile()?180:240,mobile()?340:520);
+    const width=rand(mobile()?24:30,mobile()?58:78);
+    const count=Math.round(rand(mobile()?36:52,mobile()?70:106));
+    const items=[];
+    for(let i=0;i<count;i++){
+      const u=i/Math.max(1,count-1);
+      const taper=Math.pow(Math.sin(Math.PI*u),.62);
+      const coreBias=Math.pow(Math.random(),1.55);
+      const side=(Math.random()*2-1)*width*(.16+.90*taper)*coreBias;
+      const typeRoll=Math.random();
+      const type=typeRoll<.63?'bean':(typeRoll<.88?'nib':'dust');
+      const sizeTier=Math.random();
+      const spritePool=sprites[type==='bean'?'beans':type==='nib'?'nibs':'dust'];
+      const sprite=spritePool[(Math.random()*spritePool.length)|0];
+      items.push({
+        u,
+        along:u*length+rand(-8,8),
+        side,
+        type,
+        sprite,
+        scale:(type==='bean'?rand(.54,1.08):rand(.62,1.10))*(.72+.55*taper)*(sizeTier>.92?1.22:1),
+        alpha:(type==='bean'?rand(.20,.42):type==='nib'?rand(.16,.34):rand(.10,.22))*(.48+.68*taper),
+        rot:rand(0,TAU),
+        spin:rand(-.00020,.00020),
+        phase:rand(0,TAU),
+        lift:rand(.65,1.35)
+      });
+    }
+    return {
+      x:fromLeft?rand(-length,w*.8):rand(w*.2,w+length),
+      y:baseY,direction,speed,length,width,items,
+      angle:rand(-.09,.09)+(direction<0?Math.PI:0),
+      waveAmp:rand(5,15),waveFreq:rand(.00028,.00062),phase:rand(0,TAU),
+      verticalAmp:rand(8,24),verticalFreq:rand(.00012,.00026),index
+    };
+  }
+
+  function makeAmbient(){
+    const pool=sprites.dust.concat(sprites.nibs.slice(0,Math.max(4,(sprites.nibs.length/2)|0)));
+    return {x:rand(0,w),y:rand(0,h),vx:rand(-.014,.014),vy:rand(-.010,.010),sprite:pool[(Math.random()*pool.length)|0],scale:rand(.45,.78),alpha:rand(.045,.105),rot:rand(0,TAU),spin:rand(-.00012,.00012)};
+  }
+
+  function buildScene(){
+    buildSprites();streams=[];ambient=[];
+    const streamCount=mobile()?18:26;
+    for(let i=0;i<streamCount;i++)streams.push(makeStream(i));
+    const ambientCount=mobile()?55:90;
+    for(let i=0;i<ambientCount;i++)ambient.push(makeAmbient());
+  }
+
+  function resize(){
+    dpr=Math.min(window.devicePixelRatio||1,2.35);
+    w=window.innerWidth;h=window.innerHeight;
+    canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+    canvas.style.width=w+'px';canvas.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    buildScene();
+  }
+
+  function drawSprite(sprite,x,y,scale,rot,alpha){
+    const W=(sprite.width/3)*scale,H=(sprite.height/3)*scale;
+    if(x<-W*1.5||x>w+W*1.5||y<-H*1.5||y>h+H*1.5)return;
+    ctx.save();ctx.globalAlpha=clamp(alpha,0,1);ctx.translate(x,y);ctx.rotate(rot);ctx.drawImage(sprite,-W/2,-H/2,W,H);ctx.restore();
+  }
+
+  function updateAndDrawAmbient(){
+    for(const a of ambient){
+      a.x+=a.vx;a.y+=a.vy;a.rot+=a.spin;
+      if(a.x<-10)a.x=w+10;if(a.x>w+10)a.x=-10;if(a.y<-10)a.y=h+10;if(a.y>h+10)a.y=-10;
+      drawSprite(a.sprite,a.x,a.y,a.scale,a.rot,a.alpha);
+    }
+  }
+
+  function updateAndDrawStreams(t){
+    for(const s of streams){
+      const cos=Math.cos(s.angle),sin=Math.sin(s.angle);
+      s.x+=cos*s.speed;
+      s.y+=sin*s.speed*.28 + Math.sin(t*s.verticalFreq+s.phase)*.010;
+      const lead=s.x,baseY=s.y+Math.sin(t*s.verticalFreq+s.phase)*s.verticalAmp;
+      for(let i=0;i<s.items.length;i++){
+        const p=s.items[i];
+        const localWave=Math.sin(t*s.waveFreq+p.phase+i*.115)*s.waveAmp*p.lift;
+        const x=lead-cos*p.along-sin*(p.side+localWave);
+        const y=baseY-sin*p.along+cos*(p.side*.42+localWave*.22);
+        const depthPulse=.96+Math.sin(t*.00014+p.phase)*.04;
+        drawSprite(p.sprite,x,y,p.scale*depthPulse,p.rot+t*p.spin,p.alpha);
+      }
+      const margin=s.length+180;
+      if(s.direction>0&&s.x-margin>w+120){Object.assign(s,makeStream(s.index),{x:-120});}
+      if(s.direction<0&&s.x+margin<-120){Object.assign(s,makeStream(s.index),{x:w+120});}
+      if(s.y<-60)s.y=h+60;if(s.y>h+60)s.y=-60;
+    }
+  }
+
+  function frame(t){
+    ctx.clearRect(0,0,w,h);
+    updateAndDrawAmbient();
+    updateAndDrawStreams(t);
+    requestAnimationFrame(frame);
+  }
+
+  resize();requestAnimationFrame(frame);
+  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(resize,140)},{passive:true});
+}
+initCocoaBackground();
+applyFilters();</script></body></html>
